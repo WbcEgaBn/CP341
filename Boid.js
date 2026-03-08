@@ -1,0 +1,212 @@
+class Boid{
+  //needs alignment, cohesion, separation
+  constructor(x, y){
+    this.acceleration = createVector(0, 0);
+    this.velocity = createVector(random(-1, 1), random(-1, 1));
+    this.position = createVector(x, y);
+    this.size = 10.0;
+
+    // Maximum speed
+    this.speed = 3;
+
+    // Maximum steering force
+    this.force = 0.05;
+    //this.color = color(random(256), 255, 255);
+    this.rotx = -150;
+    this.roty = 50;
+    this.rotz = 200;
+    
+  }
+  
+  goTime(boids) {
+    this.flock(boids);
+    this.drawBoid();
+    this.update();
+    this.borders();
+  }
+  
+  flock(boids){
+    let separation = this.separate(boids);
+    let alignment = this.align(boids);
+    let cohesion = this.cohesion(boids);
+
+    // Weight the forces to keep everyone together
+
+    this.applyForce(separation);
+    this.applyForce(alignment);
+    this.applyForce(cohesion);
+
+   
+  }
+  
+//applyforces??
+  applyForce(forces) {
+    this.acceleration.add(forces);
+  }
+  
+  update() {
+    // Update velocity with acceleration
+    if(this.velocity.x > 0){
+      this.rotz = -180;
+    }
+    this.velocity.add(this.acceleration);
+
+    
+    //keep things moving!
+    this.position.add(this.velocity);
+
+    // Reset acceleration to 0 each cycle
+    this.acceleration.mult(0);
+  }
+
+  
+  seek(target) {
+    // A vector pointing from the location to the target
+    let desired = p5.Vector.sub(target, this.position);
+
+    // Normalize desired and scale to maximum speed
+    desired.normalize();
+    desired.mult(this.speed);
+
+    // Steering = Desired minus Velocity
+    let steer = p5.Vector.sub(desired, this.velocity);
+
+    // Limit to maximum steering force
+    steer.limit(this.force);
+    return steer;
+  }
+  
+  //controls how boids look
+  drawBoid(){
+  //  let trout;
+    //trout = loadModel('trout.obj', true);
+    
+  
+    
+    //troutimg = loadImage('trout.jpeg');
+    
+    //fill(this.color);
+  //  stroke(255);
+    push();
+    
+    translate(this.position.x-300, this.position.y-200, 0);
+    rotateX(this.rotx);
+    rotateY(this.roty);
+    rotateZ(this.rotz);
+    scale(5); 
+  
+  //texture(fishTexture);
+    model(troutobj);
+    
+   // image(troutimg, this.position.x, this.position.y);
+   // circle(this.position.x, this.position.y, this.size);
+    pop();
+  }
+  
+  
+  
+  separate(boids) {
+    //help for this section from p5js example
+    let steer = createVector(0, 0);
+    let count = 0;
+
+    // For every boid in the system, check if it's too close
+    for (let boid of boids) {
+      let distanceToNeighbor = p5.Vector.dist(this.position, boid.position);
+
+      // If the distance is greater than 0 and less than an arbitrary amount (30 right now)
+      if (distanceToNeighbor > 0 && distanceToNeighbor < 30) {
+        // Calculate vector to get away
+        let diff = p5.Vector.sub(this.position, boid.position);
+        diff.normalize();
+
+        // Scale by distance
+        diff.div(distanceToNeighbor);
+        steer.add(diff);
+
+        // Keep track of how many
+        count++;
+      }
+    }
+
+    //get average
+    if (count > 0) {
+      steer.div(count);
+    }
+
+    // As long as the vector is greater than 0
+    if (steer.mag() > 0) {
+      // Implement Reynolds: Steering = Desired - Velocity
+      steer.normalize();
+      steer.mult(this.speed);
+      steer.sub(this.velocity);
+      steer.limit(this.force);
+    }
+    return steer;
+  }
+
+  // Alignment
+  align(boids) {
+    let sum = createVector(0, 0);
+    let count = 0;
+    //between 0 and 50 (arbitrary) to check dist and stay aligned
+    for (let i = 0; i < boids.length; i++) {
+      let d = p5.Vector.dist(this.position, boids[i].position);
+      if (d > 0 && d < 50) {
+        sum.add(boids[i].velocity);
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      sum.normalize();
+      sum.mult(this.speed);
+      let steer = p5.Vector.sub(sum, this.velocity);
+      steer.limit(this.force);
+      return steer;
+    } else {
+      return createVector(0, 0);
+    }
+  }
+
+  // Cohesion
+  cohesion(boids) {
+    let sum = createVector(0, 0); // Start with empty vector 
+    let count = 0;
+    //same neighbor dist as before- 50
+    for (let i = 0; i < boids.length; i++) {
+      let d = p5.Vector.dist(this.position, boids[i].position);
+      if (d > 0 && d < 50) {
+        sum.add(boids[i].position); // Add location
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      return this.seek(sum); // Steer towards the location
+    } else {
+      return createVector(0, 0);
+    }
+  }
+  
+  //simple borders and such
+  borders() {
+    //
+    if (this.position.x < -20) {
+      this.position.x = random(1918, 1920);
+    }
+
+    if (this.position.y < -40) {
+
+      this.position.y = random(1078, 1080);
+    }
+
+    if (this.position.x > 600) {
+      this.position.x = random(-10, -8);
+    }
+
+    if (this.position.y > 500) {
+      this.position.y = random(-40, -38);
+    }
+  }
+}

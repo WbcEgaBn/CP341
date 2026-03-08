@@ -24,9 +24,7 @@ class Coral {
 	}
 
 	drawBranch(l, d) {
-		stroke(240 + 15 * random(),
-			120 + 15 * random(),
-			120 + 15 * random());
+		stroke(255, 135, 135);
 		strokeWeight(5);
 		noFill();
 
@@ -37,12 +35,12 @@ class Coral {
 
 		push();
 		rotate(this.a);
-		this.drawBranch(l * 0.7 + random() * 0.2, d - 1);
+		this.drawBranch(l * 0.7, d - 1);
 		pop();
 
 		push();
 		rotate(-this.a);
-		this.drawBranch(l * 0.7 + random() * 0.2, d - 1);
+		this.drawBranch(l * 0.7, d - 1);
 		pop();
 	}
 }

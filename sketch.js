@@ -10,6 +10,9 @@ let selectedTool = 1;
 let coralSize = 2;
 let bubbleDuration = 1;
 let uiFont;
+let flock;
+// let troutobj = loadModel('fish.obj');
+// let shark = loadModel('SHARK.obj');
 
 let toolNames = {
 	1: "Bubbles",
@@ -28,16 +31,6 @@ function setup() {
 	createCanvas(windowWidth, windowHeight, WEBGL);
 	textFont(uiFont);
 	//troutimg = loadImage('trout.jpeg');
-	//troutobj = loadModel('fish.obj');
-	//shark = loadModel('SHARK.obj');
-
-	// flock = new Group();
-
-	// // Add an initial set of boids into the system
-	// for (let i = 0; i < 50; i++) {
-	// 	let b = new Boid(random(0, 600), random(0, 500));
-	// 	flock.addBoid(b);
-	// }
 }
 
 function draw() {
@@ -62,52 +55,54 @@ function draw() {
 	textSize(20);
 	text("FPS: " + nf(frameRate(), 2, 1), width/2 - 120, -height/2 + 30);
 
+	// if (objects.some(obj => obj instanceof Group)) {
+	// 	flock.goTime();
+
+	// 	push();
+
+	// 	scale(100);
+	// 	rotateX(frameCount * 0.01);
+	// 	ambientLight(150);          // add light for shading
+	// 	directionalLight(255, 255, 255, 0, -1, 0); // extra light
+	// 	ambientMaterial(150);  
+	// 	texture(myTexture);
+	// 	model(shark);
+	// 	pop();
+	// }
+
+
 	drawEditorUI();
 }
 
 function lightrays() {
-
   push();
   blendMode(SCREEN);
   noStroke();
-
   let t = frameCount * 0.001;
 
   for (let i = 0; i < 6; i++) {
-
     let topX = -width/2 + 660 + (i * 100);
-
     let bottomX = topX + (noise(i + 10, t) - 0.5) * 2000;
-
     let alpha = noise(i + 20, t * 3) * 25;
-
     fill(180, 255, 255, alpha);
 
     beginShape();
-
     vertex(topX, -height/2 - 50);
     vertex(topX + 200, -height/2 - 50);
-
     vertex(bottomX + 600, height/2 + 50);
     vertex(bottomX, height/2 + 50);
-
     endShape(CLOSE);
   }
 
   blendMode(MULTIPLY);
-
   let pulse = map(sin(frameCount * 0.02), -1, 1, 0, 20);
-
   fill(0, 30, 60, 30 + pulse);
-
   rect(-width/2, -height/2, width, height);
-
   pop();
 }
 
 function mousePressed() {
 
-	// fullscreen toggle (screen coordinates still valid)
 	if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
 		let fs = fullscreen();
 		fullscreen(true);
@@ -115,7 +110,6 @@ function mousePressed() {
 
 	if (!editorMode) return;
 
-	// convert mouse to centered coordinate system
 	let x = mouseX - width / 2;
 	let y = mouseY - height / 2;
 
@@ -132,7 +126,14 @@ function mousePressed() {
 	}
 
 	if (selectedTool === 4) {
-		objects.push(new Fish(x, y));
+		flock = new Group();
+
+		//Add an initial set of boids into the system
+		for (let i = 0; i < 50; i++) {
+			let b = new Boid(random(0, 600), random(0, 500));
+			flock.addBoid(b);
+		}
+		objects.push(flock);
 	}
 }
 
@@ -180,10 +181,8 @@ function drawEditorUI() {
 
 	fill(0, 150);
 	rect(left, top, 210, 110, 10);
-
 	fill(255);
 	textSize(14);
-
 	text("EDITOR MODE", left + 10, top + 20);
 
 	for (let i = 1; i <= 4; i++) {
@@ -192,39 +191,25 @@ function drawEditorUI() {
 	}
 
 	if (selectedTool === 1) {
-
 		fill(0, 150);
 		rect(left, top + 120, 210, 90, 10);
-
 		fill(255);
-
 		text("Bubble Duration", left + 10, top + 140);
-
 		let durations = ["Temporary", "Permanent"]
-
 		for (let i = 0; i < 2; i++) {
-
 			let marker = (bubbleDuration === i + 1) ? ">" : " ";
-
 			text(marker + " " + durations[i], left + 10, top + 160 + i * 18);
 		}
 	}
 
 	if (selectedTool === 3) {
-
 		fill(0, 150);
 		rect(left, top + 120, 210, 90, 10);
-
 		fill(255);
-
 		text("Coral Size", left + 10, top + 140);
-
 		let sizes = ["Small", "Medium", "Large"];
-
 		for (let i = 0; i < 3; i++) {
-
 			let marker = (coralSize === i + 1) ? ">" : " ";
-
 			text(marker + " " + sizes[i], left + 10, top + 160 + i * 18);
 		}
 	}
