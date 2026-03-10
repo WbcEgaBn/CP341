@@ -23,6 +23,7 @@ let toolNames = {
 
 function preload() {
   uiFont = loadFont('assets/roboto.ttf');
+  back_img = loadImage("water2.jpg");
 }
 
 function setup() {
@@ -30,6 +31,8 @@ function setup() {
 
 	createCanvas(windowWidth, windowHeight, WEBGL);
 	textFont(uiFont);
+	back_img.resize(windowWidth, windowHeight);
+	imageMode(CORNER);
 	//troutimg = loadImage('trout.jpeg');
 }
 
@@ -42,7 +45,12 @@ function draw() {
   mousexvel = lastmousex - mouseX;
   lastmousex = mouseX;
 
-	background(10, 60, 120);
+	//background(10, 60, 120);
+	//background(back_img);
+	push();
+  resetMatrix(); 
+  image(back_img, -(width/2), -(height/2), windowWidth, windowHeight);
+  pop();
 
 	for (let obj of objects) {
 		obj.update();
