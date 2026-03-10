@@ -12,7 +12,7 @@ let bubbleDuration = 1;
 let uiFont;
 let flock;
 let troutobj;
-let shark;
+let shark1;
 // let troutobj = loadModel('fish.obj');
 // let shark = loadModel('SHARK.obj');
 
@@ -26,6 +26,7 @@ let toolNames = {
 function preload() {
   uiFont = loadFont('assets/roboto.ttf');
   back_img = loadImage("water2.jpg");
+  shark1 = loadModel('SHARK.obj');
 }
 
 function setup() {
@@ -39,14 +40,17 @@ function setup() {
 	//boid logic
   
     troutobj = loadModel('fish2.obj');
-    shark = loadModel('SHARK.obj');
+
     flock = new Group();
 
   // Add an initial set of boids into the system
+
+  //1912 960
     for (let i = 0; i < 100; i++) {
-    let b = new Boid(random(0, 600), random(0,500));
-    flock.addBoid(b);
-  }
+    	let b = new Boid(random(-windowWidth/2, windowWidth/2), random(-windowHeight/2, windowHeight/2));
+    	flock.addBoid(b);
+  	}
+	myShark = new Shark(0,0,0);
 	//troutimg = loadImage('trout.jpeg');
 }
 
@@ -80,22 +84,16 @@ function draw() {
 	//for boids
    flock.goTime();
   
-    //push();
+    scale(100);
+  ambientLight(150);          // add light for shading
+  directionalLight(255, 255, 255, 0, -1, 0); // extra light
+  ambientMaterial(150);  
 
-	// if (objects.some(obj => obj instanceof Group)) {
-	// 	flock.goTime();
-
-	// 	push();
-
-	// 	scale(100);
-	// 	rotateX(frameCount * 0.01);
-	// 	ambientLight(150);          // add light for shading
-	// 	directionalLight(255, 255, 255, 0, -1, 0); // extra light
-	// 	ambientMaterial(150);  
-	// 	texture(myTexture);
-	// 	model(shark);
-	// 	pop();
-	// }
+  rotateX(185)
+  
+  
+   
+  myShark.drawShark();
 
 
 	drawEditorUI();
@@ -153,14 +151,14 @@ function mousePressed() {
 	}
 
 	if (selectedTool === 4) {
-		flock = new Group();
+		// flock = new Group();
 
-		//Add an initial set of boids into the system
-		for (let i = 0; i < 50; i++) {
-			let b = new Boid(random(0, 600), random(0, 500));
-			flock.addBoid(b);
-		}
-		objects.push(flock);
+		// //Add an initial set of boids into the system
+		// for (let i = 0; i < 50; i++) {
+		// 	let b = new Boid(random(0, 600), random(0, 500));
+		// 	flock.addBoid(b);
+		// }
+		// objects.push(flock);
 	}
 }
 

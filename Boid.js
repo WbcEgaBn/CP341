@@ -93,15 +93,15 @@ class Boid{
     noStroke();
     fill(20,200,20);
     //stroke();
-    circle(this.position.x, this.position.y, 10);
-    //translate(this.position.x-300, this.position.y-200, 0);
-    //rotateX(this.rotx);
-   // rotateY(this.roty);
-    //rotateZ(this.rotz);
-    //scale(5); 
+    //circle(this.position.x, this.position.y, 10);
+    translate(this.position.x-300, this.position.y-200, 0);
+    rotateX(this.rotx);
+    rotateY(this.roty);
+    rotateZ(this.rotz);
+    scale(5); 
   
   //texture(fishTexture);
-    //model(troutobj);
+    model(troutobj);
     
    // image(troutimg, this.position.x, this.position.y);
    // circle(this.position.x, this.position.y, this.size);
@@ -197,10 +197,10 @@ class Boid{
   //simple borders and such
   
   borders() {
-    let left = -width / 2;
-    let right = width / 2;
-    let top = -height / 2;
-    let bottom = height / 2;
+    let left = -windowWidth / 2;
+    let right = windowWidth / 2;
+    let top = -windowHeight / 2;
+    let bottom = windowHeight / 2;
 
     if (this.position.x < left - 20) {
       this.position.x = right + 20;
