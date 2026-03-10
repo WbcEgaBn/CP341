@@ -3,10 +3,10 @@ class Coral {
 		this.x = x;
 		this.y = y;
 		this.s = [0.2, 0.5, 0.8][sl - 1];
-		this.h = random(60, 120) * this.s;
-		this.a = random(PI / 6, PI / 3);
-		this.d = random(6, 10);
-		this.dx = random(TWO_PI);
+		this.h = 90 * this.s;
+		this.a = PI/4;
+		this.d = 4;
+		this.dx = PI;
 	}
 
 	update() {}
@@ -34,13 +34,17 @@ class Coral {
 		if (d <= 0) return;
 
 		push();
+		beginShape();
 		rotate(this.a);
 		this.drawBranch(l * 0.7, d - 1);
+		endShape();
 		pop();
-
+		
 		push();
+		beginShape();
 		rotate(-this.a);
 		this.drawBranch(l * 0.7, d - 1);
+		endShape();
 		pop();
 	}
 }
