@@ -80,7 +80,7 @@ function draw() {
 	//for boids
    flock.goTime();
   
-    push();
+    //push();
 
 	// if (objects.some(obj => obj instanceof Group)) {
 	// 	flock.goTime();
@@ -145,7 +145,7 @@ function mousePressed() {
 	}
 
 	if (selectedTool === 2) {
-		objects.push(new Seaweed(x, y, 10));
+		objects.push(new Seaweed(x, y, random(6,10)));
 	}
 
 	if (selectedTool === 3) {

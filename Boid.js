@@ -90,8 +90,8 @@ class Boid{
     //circle(this.position.x, this.position.y, this.size);
     push();
     
-
-    fill(20,20,20);
+    noStroke();
+    fill(20,200,20);
     //stroke();
     circle(this.position.x, this.position.y, 10);
     //translate(this.position.x-300, this.position.y-200, 0);
@@ -195,23 +195,24 @@ class Boid{
   }
   
   //simple borders and such
+  
   borders() {
-    //
-    if (this.position.x < -20) {
-      this.position.x = random(1918, 1920);
+    let left = -width / 2;
+    let right = width / 2;
+    let top = -height / 2;
+    let bottom = height / 2;
+
+    if (this.position.x < left - 20) {
+      this.position.x = right + 20;
     }
-
-    if (this.position.y < -40) {
-
-      this.position.y = random(1078, 1080);
+    if (this.position.y < top - 20) {
+      this.position.y = bottom + 20;
     }
-
-    if (this.position.x > 600) {
-      this.position.x = random(-10, -8);
+    if (this.position.x > right + 20) {
+      this.position.x = left - 20;
     }
-
-    if (this.position.y > 500) {
-      this.position.y = random(-40, -38);
+    if (this.position.y > bottom + 20) {
+      this.position.y = top - 20;
     }
   }
 }
