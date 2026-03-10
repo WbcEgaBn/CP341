@@ -5,7 +5,7 @@ class Coral {
 		this.s = [0.2, 0.5, 0.8][sl - 1];
 		this.h = 90 * this.s;
 		this.a = PI/4;
-		this.d = 4;
+		this.d = 3;
 		this.dx = PI;
 	}
 
@@ -34,17 +34,17 @@ class Coral {
 		if (d <= 0) return;
 
 		push();
-		beginShape();
+		//beginShape();
 		rotate(this.a);
 		this.drawBranch(l * 0.7, d - 1);
-		endShape();
+		//endShape();
 		pop();
-		
+
 		push();
-		beginShape();
+		//beginShape();
 		rotate(-this.a);
 		this.drawBranch(l * 0.7, d - 1);
-		endShape();
+		//endShape();
 		pop();
 	}
 }
