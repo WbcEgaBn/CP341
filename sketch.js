@@ -54,7 +54,8 @@ function setup() {
     });*/
 	fishgeo = buildGeometry(() => {
     beginShape();
-
+		noStroke();
+		fill(200,50,1);
     vertex(20, 0);     
     vertex(10, -5);    
     vertex(-2, -9);      
@@ -95,10 +96,10 @@ function draw() {
 
 	//background(10, 60, 120);
 	//background(back_img);
-	push();
+  //push();
   resetMatrix(); 
   image(back_img, -(width/2), -(height/2), windowWidth, windowHeight);
-  pop();
+  //pop();
 
 	for (let obj of objects) {
 		obj.update();
@@ -111,9 +112,10 @@ function draw() {
 	textSize(20);
 	text("FPS: " + nf(frameRate(), 2, 1), width/2 - 120, -height/2 + 30);
 
+	
 	//for boids
+drawEditorUI();
    flock.goTime();
-  
     scale(100);
   ambientLight(150);          // add light for shading
   directionalLight(255, 255, 255, 0, -1, 0); // extra light
@@ -121,12 +123,8 @@ function draw() {
 
   rotateX(185)
   
-  
-   
   myShark.drawShark();
-
-
-	drawEditorUI();
+	
 }
 
 function lightrays() {
@@ -233,7 +231,6 @@ function drawEditorUI() {
 
 	let left = -width / 2 + 10;
 	let top = -height / 2 + 10;
-
 	fill(0, 150);
 	rect(left, top, 210, 110, 10);
 	fill(255);

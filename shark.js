@@ -24,8 +24,8 @@ class Shark{
     if(this.position.x < -9){
      
       this.position.x = 9
-      this.position.y = random(-2,2)
-      this.position.z = random(-2,2)
+      this.position.y = random(-3,3);
+      this.position.z = 0;
     
    // translate(this.position.x, this.position.y, this.position.z);
        
