@@ -64,7 +64,7 @@ class Seaweed {
 	update() {}
 	display() {
 		strokeWeight(20);
-		this.mcheck();
+		//this.mcheck();
 		stroke(0, this.gree, this.blu);
 
 		if (this.sc > 3) {

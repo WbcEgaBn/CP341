@@ -86,17 +86,22 @@ class Boid{
     //troutimg = loadImage('trout.jpeg');
     
     //fill(this.color);
-  //  stroke(255);
+    //stroke(255);
+    //circle(this.position.x, this.position.y, this.size);
     push();
     
-    translate(this.position.x-300, this.position.y-200, 0);
-    rotateX(this.rotx);
-    rotateY(this.roty);
-    rotateZ(this.rotz);
-    scale(5); 
+
+    fill(20,20,20);
+    //stroke();
+    circle(this.position.x, this.position.y, 10);
+    //translate(this.position.x-300, this.position.y-200, 0);
+    //rotateX(this.rotx);
+   // rotateY(this.roty);
+    //rotateZ(this.rotz);
+    //scale(5); 
   
   //texture(fishTexture);
-    model(troutobj);
+    //model(troutobj);
     
    // image(troutimg, this.position.x, this.position.y);
    // circle(this.position.x, this.position.y, this.size);

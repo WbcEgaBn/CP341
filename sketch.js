@@ -11,6 +11,8 @@ let coralSize = 2;
 let bubbleDuration = 1;
 let uiFont;
 let flock;
+let troutobj;
+let shark;
 // let troutobj = loadModel('fish.obj');
 // let shark = loadModel('SHARK.obj');
 
@@ -33,6 +35,18 @@ function setup() {
 	textFont(uiFont);
 	back_img.resize(windowWidth, windowHeight);
 	imageMode(CORNER);
+
+	//boid logic
+  
+    troutobj = loadModel('fish2.obj');
+    shark = loadModel('SHARK.obj');
+    flock = new Group();
+
+  // Add an initial set of boids into the system
+    for (let i = 0; i < 100; i++) {
+    let b = new Boid(random(0, 600), random(0,500));
+    flock.addBoid(b);
+  }
 	//troutimg = loadImage('trout.jpeg');
 }
 
@@ -62,6 +76,11 @@ function draw() {
 	noStroke();
 	textSize(20);
 	text("FPS: " + nf(frameRate(), 2, 1), width/2 - 120, -height/2 + 30);
+
+	//for boids
+   flock.goTime();
+  
+    push();
 
 	// if (objects.some(obj => obj instanceof Group)) {
 	// 	flock.goTime();
