@@ -20,7 +20,6 @@ let toolNames = {
 	1: "Bubbles",
 	2: "Seaweed",
 	3: "Coral",
-	4: "Fish"
 };
 
 function preload() {
@@ -177,17 +176,6 @@ function mousePressed() {
 	if (selectedTool === 3) {
 		objects.push(new Coral(x, y, coralSize));
 	}
-
-	if (selectedTool === 4) {
-		// flock = new Group();
-
-		// //Add an initial set of boids into the system
-		// for (let i = 0; i < 50; i++) {
-		// 	let b = new Boid(random(0, 600), random(0, 500));
-		// 	flock.addBoid(b);
-		// }
-		// objects.push(flock);
-	}
 }
 
 function keyPressed() {
@@ -202,7 +190,7 @@ function keyPressed() {
 
 	if (editorMode) {
 
-		if (key >= '1' && key <= '4') {
+		if (key >= '1' && key <= '3') {
 			selectedTool = int(key);
 		}
 		if (selectedTool === 1) {
@@ -232,12 +220,12 @@ function drawEditorUI() {
 	let left = -width / 2 + 10;
 	let top = -height / 2 + 10;
 	fill(0, 150);
-	rect(left, top, 210, 110, 10);
+	rect(left, top, 210, 90, 10);
 	fill(255);
 	textSize(14);
 	text("EDITOR MODE", left + 10, top + 20);
 
-	for (let i = 1; i <= 4; i++) {
+	for (let i = 1; i <= 3; i++) {
 		let marker = (i === selectedTool) ? ">" : " ";
 		text(marker + " " + i + ": " + toolNames[i], left + 10, top + 20 + i * 18);
 	}
