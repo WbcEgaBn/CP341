@@ -13,6 +13,8 @@ let uiFont;
 let flock;
 let troutobj;
 let shark;
+//let fishimg;
+let fishgeo;
 // let troutobj = loadModel('fish.obj');
 // let shark = loadModel('SHARK.obj');
 
@@ -26,6 +28,8 @@ let toolNames = {
 function preload() {
   uiFont = loadFont('assets/roboto.ttf');
   back_img = loadImage("water2.jpg");
+  //fishimg = loadImage('smallfish.png');
+
 }
 
 function setup() {
@@ -37,6 +41,36 @@ function setup() {
 	imageMode(CORNER);
 
 	//boid logic
+
+	/*fishgeo = buildGeometry(() => {
+        beginShape();
+        vertex(25, 0);       // nose
+		//vertex(10, 5);
+		//vertex(10, -5);
+		//vertex(10, 5);
+		//vertex(10, -5);
+
+        vertex(-10, -10);    
+        vertex(-5, 0);      
+        vertex(-10, 10);     
+        endShape(CLOSE);
+    });*/
+	fishgeo = buildGeometry(() => {
+    beginShape();
+
+    vertex(20, 0);     
+    vertex(10, -5);    
+    vertex(-2, -9);      
+    vertex(-10, -3);    
+    vertex(-18, -10);    
+    vertex(-13, 0);      
+    vertex(-18, 10);     
+    vertex(-10, 3);   
+    vertex(-2, 8);       
+    vertex(10, 5);       
+    
+    endShape(CLOSE);
+});
   
     troutobj = loadModel('fish2.obj');
     shark = loadModel('SHARK.obj');

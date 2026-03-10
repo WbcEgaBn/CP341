@@ -62,11 +62,11 @@ class Seaweed {
 		}
 	}
 	update() {}
-	display() {
+	displax() {
 		strokeWeight(20);
 		//this.mcheck();
 		stroke(0, this.gree, this.blu);
-
+		//noStroke()
 		if (this.sc > 3) {
 			this.sway();
 			this.sc = 0;
@@ -77,5 +77,26 @@ class Seaweed {
 		for (let i = 1; i < this.poix.length; ++i) {
 			line(this.poix[i - 1], this.poiy[i - 1], this.poix[i], this.poiy[i]);
 		}
+	}
+	display() {
+		push(); 
+		strokeWeight(20);
+		stroke(0, this.gree, this.blu);
+		noFill(); 
+
+		if (this.sc > 3) {
+			this.sway();
+			this.sc = 0;
+		} else {
+			this.sc++;
+		}
+
+		//
+		beginShape();
+		for (let i = 0; i < this.poix.length; ++i) {
+			vertex(this.poix[i], this.poiy[i]);
+		}
+		endShape();
+		pop(); 
 	}
 }
