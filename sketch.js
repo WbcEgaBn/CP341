@@ -105,12 +105,14 @@ function draw() {
 		obj.display();
 	}
 	lightrays();
-
 	fill(255);
 	noStroke();
 	textSize(20);
-	text("FPS: " + nf(frameRate(), 2, 1), width/2 - 120, -height/2 + 30);
+	//text("FPS: " + nf(frameRate(), 2, 1), width/2 - 120, -height/2 + 30);
+	
+	
 
+	
 	
 	//for boids
 drawEditorUI();
@@ -228,6 +230,10 @@ function drawEditorUI() {
 	for (let i = 1; i <= 3; i++) {
 		let marker = (i === selectedTool) ? ">" : " ";
 		text(marker + " " + i + ": " + toolNames[i], left + 10, top + 20 + i * 18);
+		fill(255);
+		noStroke();
+		textSize(14);
+		text("FPS: " + nf(frameRate(), 2, 1), width/2 - 120, -height/2 + 30);
 	}
 
 	if (selectedTool === 1) {

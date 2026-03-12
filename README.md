@@ -11,7 +11,7 @@ This repository holds the files to create an interactive sea environment in p5.j
 5) Click Go Live 
 ### Features 
 
-To keep the program as interactive as possible, there is a scene editor that allows the user to place bubbles, seaweed, and coral. To enter edit mode, type `e`. To place objects selected, simply click. To pick between different parameters, you can select using the arrow keys. 
+To keep the program as interactive as possible, there is a scene editor that allows the user to place bubbles, seaweed, and coral. To enter or exit edit mode, type `e`. To clear all objects from the screen, type `c`. To place objects selected, simply click. To pick between different parameters, you can select using the arrow keys. 
 
 #### Bubbles 
 
